@@ -24,16 +24,18 @@
 </script>
 <style>
   :root {
-    --bg: #f5f2ed;
+    --bg: #f0f4f8;
     --surface: #ffffff;
-    --surface2: #f0ece5;
-    --border: #e0d9d0;
-    --text: #1a1714;
-    --text2: #6b6560;
-    --text3: #9e9890;
-    --accent: #c85a2a;
-    --accent-light: #f5e8e1;
-    --accent-dark: #a34620;
+    --surface2: #e8eef5;
+    --border: #c8d4e0;
+    --text: #001a4d;
+    --text2: #1a3a6b;
+    --text3: #6b85a3;
+    --accent: #FA4616;
+    --accent-light: #fde8e2;
+    --accent-dark: #d63a10;
+    --blue: #003087;
+    --blue-light: #e6ecf5;
     --green: #2a7a4b;
     --green-light: #e1f0e8;
     --radius: 12px;
@@ -41,8 +43,18 @@
     --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.06);
   }
   [data-theme="dark"] {
-    --bg: #111010;
-    --surface: #1c1b1a;
+    --bg: #000d1f;
+    --surface: #001433;
+    --surface2: #001a3d;
+    --border: #003087;
+    --text: #f0f4ff;
+    --text2: #8aа0cc;
+    --text3: #4a6080;
+    --accent: #FA4616;
+    --accent-light: #2a1510;
+    --accent-dark: #ff6633;
+    --blue: #4d7acc;
+    --blue-light: #001433;
     --surface2: #242322;
     --border: #2e2c2a;
     --text: #f0ece6;
@@ -143,27 +155,44 @@
     display: flex;
     align-items: center;
     gap: 4px;
+    justify-content: center;
   }
   .bill-symbol {
     font-family: 'DM Mono', monospace;
-    font-size: 32px;
-    font-weight: 300;
-    color: var(--text3);
+    font-size: 44px;
+    font-weight: 400;
+    color: #ffffff;
     line-height: 1;
   }
   #bill {
     font-family: 'DM Mono', monospace;
-    font-size: 44px;
-    font-weight: 300;
-    color: var(--text);
+    font-size: 64px;
+    font-weight: 400;
+    color: #ffffff;
     background: transparent;
     border: none;
     outline: none;
     width: 100%;
     min-width: 0;
-    letter-spacing: -1px;
+    letter-spacing: -2px;
+    text-align: center;
   }
-  #bill::placeholder { color: var(--text3); }
+  #bill::placeholder { color: rgba(255,255,255,0.5); }
+  .bill-card {
+    background: #003087;
+    border-radius: var(--radius);
+    padding: 1.5rem 1.25rem;
+    box-shadow: 0 4px 20px rgba(0,48,135,0.35);
+    text-align: center;
+  }
+  .bill-card-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 8px;
+  }
 
   /* Tip */
   .tip-grid {
@@ -274,6 +303,40 @@
   .round-btn.active { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
 
   /* Results */
+  .total-hero {
+    background: #FA4616;
+    border-radius: var(--radius-sm);
+    padding: 28px 16px;
+    text-align: center;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 16px rgba(250,70,22,0.3);
+  }
+  .total-hero-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  .total-hero-value {
+    font-family: 'DM Mono', monospace;
+    font-size: 72px;
+    font-weight: 500;
+    color: #ffffff;
+    letter-spacing: -3px;
+    line-height: 1;
+    text-align: center;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .total-hero-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    margin-top: 8px;
+    font-weight: 600;
+    text-align: center;
+  }
   .results-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -399,6 +462,28 @@
     letter-spacing: 0.04em;
   }
 
+  .color-picker-section {
+    margin-top: 1rem;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+  }
+  .color-picker-label { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); margin-bottom: 10px; }
+  .color-picker-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 8px; }
+  .color-picker-item {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 6px 10px; flex: 1;
+  }
+  .color-picker-item label { font-size: 12px; color: var(--text2); white-space: nowrap; }
+  .color-picker-item input[type="color"] { width: 32px; height: 28px; border: none; border-radius: 6px; cursor: pointer; padding: 0; background: none; }
+  .school-presets { display: flex; gap: 6px; flex-wrap: wrap; }
+  .preset-btn {
+    padding: 5px 10px; border-radius: 20px; border: 1px solid var(--border);
+    font-size: 11px; font-weight: 600; cursor: pointer; background: transparent;
+    color: var(--text2); transition: all 0.1s; font-family: 'DM Sans', sans-serif;
+  }
+  .preset-btn:hover { transform: translateY(-1px); box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+
   @media (max-width: 400px) {
     #bill { font-size: 36px; }
     .results-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -418,8 +503,8 @@
 <div class="container">
 
   <!-- Bill -->
-  <div class="card">
-    <div class="card-label">Bill amount</div>
+  <div class="bill-card">
+    <div class="bill-card-label">Enter bill amount</div>
     <div class="bill-row">
       <span class="bill-symbol">$</span>
       <input type="number" id="bill" placeholder="0.00" min="0" step="0.01" inputmode="decimal" autocomplete="off" />
@@ -430,9 +515,9 @@
   <div class="card">
     <div class="card-label">Tip percentage</div>
     <div class="tip-grid">
-      <button class="tip-btn" data-tip="10">10%</button>
+      <button class="tip-btn active" data-tip="10">10%</button>
       <button class="tip-btn" data-tip="15">15%</button>
-      <button class="tip-btn active" data-tip="18">18%</button>
+      <button class="tip-btn" data-tip="18">18%</button>
       <button class="tip-btn" data-tip="20">20%</button>
       <button class="tip-btn" data-tip="25">25%</button>
     </div>
@@ -468,18 +553,23 @@
 
   <!-- Results -->
   <div class="card">
+    <div class="total-hero">
+      <div class="total-hero-label">Total bill</div>
+      <div class="total-hero-value" id="totalAmt">$0.00</div>
+      <div class="total-hero-sub" id="totalHeroSub">Enter a bill amount above</div>
+    </div>
     <div class="results-grid">
       <div class="result-cell">
         <div class="result-cell-label">Tip</div>
         <div class="result-cell-value" id="tipAmt">$0.00</div>
       </div>
-      <div class="result-cell">
-        <div class="result-cell-label">Total</div>
-        <div class="result-cell-value" id="totalAmt">$0.00</div>
-      </div>
       <div class="result-cell featured">
         <div class="result-cell-label">Per person</div>
         <div class="result-cell-value" id="perPerson">$0.00</div>
+      </div>
+      <div class="result-cell">
+        <div class="result-cell-label">Tip %</div>
+        <div class="result-cell-value" id="tipPctDisplay">18%</div>
       </div>
     </div>
 
@@ -540,9 +630,37 @@
     </div>
   </div>
 
+<!-- Color picker -->
+<div class="card" style="margin-top:0;">
+  <div class="color-picker-section" style="margin-top:0; border-top:none; padding-top:0;">
+    <div class="color-picker-label">🎨 Customize colors</div>
+    <div class="color-picker-row">
+      <div class="color-picker-item">
+        <label for="color1">Top</label>
+        <input type="color" id="color1" value="#003087" />
+      </div>
+      <div class="color-picker-item">
+        <label for="color2">Bottom</label>
+        <input type="color" id="color2" value="#FA4616" />
+      </div>
+    </div>
+    <div class="school-presets">
+      <button class="preset-btn" data-c1="#003087" data-c2="#FA4616">🐊 UF Gators</button>
+      <button class="preset-btn" data-c1="#990000" data-c2="#CEB888">🐻 Alabama</button>
+      <button class="preset-btn" data-c1="#CC0000" data-c2="#BF8700">🌴 USC</button>
+      <button class="preset-btn" data-c1="#003594" data-c2="#FFB81C">🐝 Michigan</button>
+      <button class="preset-btn" data-c1="#BF5700" data-c2="#333333">🤘 Texas</button>
+      <button class="preset-btn" data-c1="#BA0C2F" data-c2="#13294B">🐔 Arkansas</button>
+      <button class="preset-btn" data-c1="#4B2683" data-c2="#FFC72C">⚡ LSU</button>
+      <button class="preset-btn" data-c1="#BB0000" data-c2="#222222">🐶 Georgia</button>
+      <button class="preset-btn" data-c1="#154733" data-c2="#FEE123">🦆 Oregon</button>
+      <button class="preset-btn" data-c1="#001E62" data-c2="#C99700">🐬 UCLA</button>
+      <button class="preset-btn" data-c1="#8C1515" data-c2="#2E2D29">🌲 Stanford</button>
+    </div>
+  </div>
 </div>
 
-<!-- AdSense ad unit -->
+</div>
 <div class="ad-slot">
   <ins class="adsbygoogle"
     style="display:block;width:100%;min-height:90px;"
@@ -553,10 +671,10 @@
   <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 </div>
 
-<footer>Made with care &mdash; splittip.app</footer>
+<footer>🐊 splittip.app — Go Gators!</footer>
 
 <script>
-  let tipPct = 18;
+  let tipPct = 10;
   let splitCount = 1;
   let roundTo = 0;
 
@@ -583,6 +701,13 @@
     document.getElementById('tipAmt').textContent = fmt(tip);
     document.getElementById('totalAmt').textContent = fmt(total);
     document.getElementById('perPerson').textContent = fmt(rounded);
+    document.getElementById('tipPctDisplay').textContent = tipPct + '%';
+    const heroSub = document.getElementById('totalHeroSub');
+    if (bill > 0) {
+      heroSub.textContent = splitCount > 1 ? `split ${splitCount} ways = ${fmt(rounded)} each` : `including ${tipPct}% tip`;
+    } else {
+      heroSub.textContent = 'Enter a bill amount above';
+    }
 
     document.getElementById('br-bill').textContent = fmt(bill);
     document.getElementById('br-pct').textContent = tipPct;
@@ -657,14 +782,14 @@
   document.getElementById('resetBtn').addEventListener('click', () => {
     billEl.value = '';
     customTipEl.value = '';
-    tipPct = 18;
+    tipPct = 10;
     splitCount = 1;
     roundTo = 0;
     splitNumEl.textContent = '1';
     splitLabelEl.textContent = 'person';
     document.getElementById('splitDown').disabled = true;
     document.querySelectorAll('.tip-btn').forEach(b => b.classList.remove('active'));
-    document.querySelector('[data-tip="18"]').classList.add('active');
+    document.querySelector('[data-tip="10"]').classList.add('active');
     document.querySelectorAll('.round-btn').forEach(b => b.classList.remove('active'));
     document.querySelector('[data-round="0"]').classList.add('active');
     calc();
@@ -686,6 +811,33 @@
       navigator.serviceWorker.register('sw.js');
     });
   }
+
+  // Color picker
+  function applyColors(c1, c2) {
+    document.getElementById('color1').value = c1;
+    document.getElementById('color2').value = c2;
+    document.querySelector('.bill-card').style.background = c1;
+    document.querySelector('.total-hero').style.background = c2;
+    document.querySelector('.total-hero').style.boxShadow = `0 4px 16px ${c2}66`;
+    document.querySelector('.bill-card').style.boxShadow = `0 4px 20px ${c1}66`;
+    localStorage.setItem('splittip-c1', c1);
+    localStorage.setItem('splittip-c2', c2);
+  }
+
+  document.getElementById('color1').addEventListener('input', e => {
+    applyColors(e.target.value, document.getElementById('color2').value);
+  });
+  document.getElementById('color2').addEventListener('input', e => {
+    applyColors(document.getElementById('color1').value, e.target.value);
+  });
+
+  document.querySelectorAll('.preset-btn').forEach(btn => {
+    btn.addEventListener('click', () => applyColors(btn.dataset.c1, btn.dataset.c2));
+  });
+
+  const savedC1 = localStorage.getItem('splittip-c1');
+  const savedC2 = localStorage.getItem('splittip-c2');
+  if (savedC1 && savedC2) applyColors(savedC1, savedC2);
 </script>
 </body>
 </html>
